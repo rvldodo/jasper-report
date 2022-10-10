@@ -9,16 +9,19 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Path("student")
 @Produces("application/json")
 @Consumes("application/json")
 public class StudentResource {
 
+    private static final Logger LOGGER = Logger.getLogger(StudentResource.class.getName());
 
     @Inject
     JasperReportService jasperReportService;
@@ -34,10 +37,13 @@ public class StudentResource {
         try{
             if(!dir.exists()) {
                 dir.mkdir();
-                String jasperReportPath = "src/main/resources/student.jrxml";
-                jasperReportService.generatedPdfReport(jasperReportPath, outputFile, parameter);
+                if(dir.isDirectory()) {
+                    String jasperReportPath = "src/main/resources/student.jrxml";
+                    jasperReportService.generatedPdfReport(jasperReportPath, outputFile, parameter);
+                }
             }
-            return Response.ok(students).build();
+
+            return Response.status(201, "PDF file successfully created").build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

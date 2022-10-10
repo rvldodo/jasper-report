@@ -149,7 +149,7 @@
     </columnFooter>
     <pageFooter>
         <band height="105" splitType="Stretch">
-            <textField pattern="EEEEE dd MMMMM yyyy">
+            <textField pattern="MMM d, yyyy h:mm:ss a">
                 <reportElement style="Column header" x="650" y="17" width="131" height="20" forecolor="#000000" uuid="95484ca0-40b4-4752-95d8-1afbc33c820b"/>
                 <textElement textAlignment="Right">
                     <font size="12" isBold="false"/>
